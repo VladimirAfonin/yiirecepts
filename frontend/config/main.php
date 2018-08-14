@@ -14,15 +14,20 @@ return [
     'components' => [
         'request' => [
             'csrfParam' => '_csrf-frontend',
+            'cookieValidationKey' => $params['cookieValidationKey'],
         ],
         'user' => [
             'identityClass' => 'common\models\User',
             'enableAutoLogin' => true,
-            'identityCookie' => ['name' => '_identity-frontend', 'httpOnly' => true],
+            'identityCookie' => ['name' => '_identity', 'httpOnly' => true, 'domain' => $params['cookieDomain']],
         ],
         'session' => [
             // this is the name of the session cookie used for login on the frontend
-            'name' => 'advanced-frontend',
+            'name' => '_session',
+            'cookieParams' => [
+                'domain' => $params['cookieDomain'],
+                'httpOnly' => true,
+            ],
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,
@@ -36,14 +41,19 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        /*
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                '' => 'site/index',
+                '<_action:[\w\-]+>' => 'site/<_action>',
+                '<_controller:[\w\-]+>' => '<_controller>/index',
+                '<_controller:[\w\-]+>/<id:\d+>' => '<_controller>/view',
+                '<_controller:[\w\-]+>/<_action:[\w\-]+>' => '<_controller>/<_action>',
+                '<_controller:[\w\-]+>/<_id:\d+>/<_action:[\w\-]+>' => '<_controller>/<_action>',
+
             ],
         ],
-        */
     ],
     'params' => $params,
 ];

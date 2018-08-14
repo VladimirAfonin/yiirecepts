@@ -8,5 +8,8 @@ return [
         'urlManager' => [
             'showScriptName' => true,
         ],
+        'session' => [
+            'cookieParams' => new \yii\helpers\ReplaceArrayValue(['httpOnly' => true]),
+        ],
     ],
 ];
