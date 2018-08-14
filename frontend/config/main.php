@@ -41,19 +41,24 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
-        'urlManager' => [
-            'enablePrettyUrl' => true,
-            'showScriptName' => false,
-            'rules' => [
-                '' => 'site/index',
-                '<_action:[\w\-]+>' => 'site/<_action>',
-                '<_controller:[\w\-]+>' => '<_controller>/index',
-                '<_controller:[\w\-]+>/<id:\d+>' => '<_controller>/view',
-                '<_controller:[\w\-]+>/<_action:[\w\-]+>' => '<_controller>/<_action>',
-                '<_controller:[\w\-]+>/<_id:\d+>/<_action:[\w\-]+>' => '<_controller>/<_action>',
-
-            ],
-        ],
+//        'urlManager' => [
+//            'enablePrettyUrl' => true,
+//            'showScriptName' => false,
+//            'rules' => [
+//                '' => 'site/index',
+//                '<_action:[\w\-]+>' => 'site/<_action>',
+//                '<_controller:[\w\-]+>' => '<_controller>/index',
+//                '<_controller:[\w\-]+>/<id:\d+>' => '<_controller>/view',
+//                '<_controller:[\w\-]+>/<_action:[\w\-]+>' => '<_controller>/<_action>',
+//                '<_controller:[\w\-]+>/<_id:\d+>/<_action:[\w\-]+>' => '<_controller>/<_action>',
+//
+//            ],
+//        ],
+        'backendUrlManager' => require __DIR__ . '/../../backend/config/urlManager.php',
+        'frontendUrlManager' => require __DIR__ . '/urlManager.php',
+        'urlManager' => function () {
+            return Yii::$app->get('frontendUrlManager');
+        },
     ],
     'params' => $params,
 ];
