@@ -3,6 +3,15 @@
 /* @var $this yii\web\View */
 
 $this->title = 'My Yii Application';
+
+/*echo phpinfo(); // for checking memcached
+$memcached = new Memcached();
+$memcached->addServer('localhost', 11211);
+$memcached->set('key', 'value');
+echo $memcached->get('key');
+echo '<br>';
+exit('exit');*/
+
 ?>
 <div class="site-index">
 
