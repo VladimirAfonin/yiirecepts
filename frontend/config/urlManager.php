@@ -7,6 +7,7 @@ return [
     'showScriptName' => false,
     'rules' => [
         '' => 'site/index',
+        'cart' => 'shop/cart/index',
         '<_action:[\w\-]+>' => 'site/<_action>',
 
         '<_c:[\w\-]+>' => '<_c>/index',
