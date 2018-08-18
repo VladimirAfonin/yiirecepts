@@ -1,8 +1,12 @@
-<?php
+<?php /** @noinspection PhpUndefinedClassConstantInspection */
+
 namespace frontend\controllers;
 
+use shop\entities\Article;
 use Yii;
 use yii\base\InvalidParamException;
+use yii\db\ActiveRecord;
+use yii\helpers\VarDumper;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -211,5 +215,59 @@ class SiteController extends Controller
         return $this->render('resetPassword', [
             'model' => $model,
         ]);
+    }
+
+    public function actionArticle()
+    {
+        $article = new Article();
+        $article->name = 'Valentine day is coming... bla bla bla ...';
+        $article->description = 'Homer the clown is angry. Something description here.';
+
+        // send email through event
+        $article->on(ActiveRecord::EVENT_AFTER_INSERT, function ($event) {
+            $followers = ['tanandre442@gmail.com', 'afoninvladimir@yahoo.com'];
+            foreach ($followers as $follower) {
+                Yii::$app->mailer->compose()
+                    ->setFrom('afonin006@gmail.com')
+                    ->setTo($follower)
+                    ->setSubject($event->sender->name)
+                    ->setTextBody($event->sender->description)
+                    ->send();
+            }
+            echo 'Emails was sent';
+        });
+
+        if (!$article->save()) {
+            echo VarDumper::dumpAsString($article->getErrors());
+        }
+    }
+
+    public function actionArticleCustom()
+    {
+        $article = new Article();
+        $article->name = 'Valentine day is coming... bla bla bla ...';
+        $article->description = 'Homer the clown is angry. Something description here.';
+
+        // send email through event
+        $article->on(Article::EVENT_OUR_CUSTOM_EVENT, function ($event) {
+            $followers = ['tanandre442@gmail.com', 'afoninvladimir@yahoo.com'];
+
+            foreach ($followers as $follower) {
+                Yii::$app->mailer->compose()
+                    ->setFrom('afonin006@gmail.com')
+                    ->setTo($follower)
+                    ->setSubject($event->sender->name)
+                    ->setTextBody($event->sender->description)
+                    ->send();
+            }
+
+            echo 'Emails was sent';
+        });
+
+        if (!$article->save()) {
+            echo VarDumper::dumpAsString($article->getErrors());
+        } else {
+            $article->trigger(Article::EVENT_OUR_CUSTOM_EVENT);
+        }
     }
 }
