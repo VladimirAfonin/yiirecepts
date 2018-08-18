@@ -13,5 +13,9 @@ return [
             'useMemcached' => true,
 //            'cachePath' => '@common/runtime/cache',
         ],
+        'cart' => [
+            'class' => 'shop\ShoppingCart',
+            'sessionKey' => 'primary-cart',
+        ],
     ],
 ];

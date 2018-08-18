@@ -3,15 +3,18 @@
 namespace shop;
 
 use shop\storage\StorageInterface;
+use yii\base\Component;
 
-class ShoppingCart
+class ShoppingCart extends Component
 {
+    public $sessionKey = 'cart';
     private $_storage;
     private $_items = [];
 
-    public function __construct(StorageInterface $storage)
+    public function __construct(StorageInterface $storage, array $config = [])
     {
         $this->_storage = $storage;
+        parent::__construct($config);
     }
 
     /**
