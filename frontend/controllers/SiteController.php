@@ -270,4 +270,9 @@ class SiteController extends Controller
             $article->trigger(Article::EVENT_OUR_CUSTOM_EVENT);
         }
     }
+
+    public function actionUrls()
+    {
+        return $this->render('urls');
+    }
 }
