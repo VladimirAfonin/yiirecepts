@@ -46,7 +46,12 @@ class PostController extends Controller
                 'class' => ViewAction::class,
                 'modelClass' => $this->modelClass,
             ],
+            'page' => [
+                'class' => 'yii\web\ViewAction',
+                'defaultView' => 'contact',
+//                'layout' => 'some layout',
+//            'viewPrefix' => // for ex.: tutorial/chap1 => pages/tutorial/chap1
+            ],
         ];
     }
-
 }
