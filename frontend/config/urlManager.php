@@ -9,9 +9,10 @@ return [
         '' => 'site/index',
         'cart' => 'shop/cart/index',
         'users' => 'shop/index',
-        '<_action:[\w\-]+>' => 'site/<_action>',
+//        'post' => 'post/index',
 
         '<_c:[\w\-]+>' => '<_c>/index',
+        '<_action:[\w\-]+>' => 'site/<_action>',
         '<_c:[\w\-]+>/<id:\d+>' => '<_c>/view',
         '<_c:[\w\-]+>/<_a:[\w-]+>' => '<_c>/<_a>',
         '<_c:[\w\-]+>/<id:\d+>/<_a:[\w\-]+>' => '<_c>/<_a>',
