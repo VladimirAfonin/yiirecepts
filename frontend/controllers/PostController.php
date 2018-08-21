@@ -8,10 +8,21 @@ use frontend\actions\IndexAction;
 use frontend\actions\ViewAction;
 use shop\entities\Post;
 use yii\web\Controller;
+use frontend\components\CustomFilter;
 
 class PostController extends Controller
 {
     public $modelClass = Post::class;
+
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => CustomFilter::class,
+                'only' => ['index'],
+            ]
+        ];
+    }
 
     public function actions()
     {
