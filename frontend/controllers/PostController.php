@@ -54,4 +54,21 @@ class PostController extends Controller
             ],
         ];
     }
+
+    public function actionContext()
+    {
+        return $this->render('context');
+    }
+
+    /**
+     * for context in view
+     */
+    public function hello()
+    {
+        if (!empty($_GET['name'])) {
+            echo 'Hello, ' . $_GET['name'] . '!';
+        } else {
+            echo 'Hello, unknown';
+        }
+    }
 }
