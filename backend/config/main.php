@@ -17,6 +17,7 @@ return [
     'modules' => [],
     'components' => [
         'request' => [
+            'baseUrl'=>'/admin', // /backend
             'csrfParam' => '_csrf-backend',
             'cookieValidationKey' => $params['cookieValidationKey'],
         ],

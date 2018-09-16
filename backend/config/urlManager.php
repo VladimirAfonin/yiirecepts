@@ -2,11 +2,12 @@
 
 return [
     'class' => 'yii\web\UrlManager',
+    'scriptUrl'=>'/backend/web/index.php',
     'hostInfo' => $params['backendHostInfo'],
     'enablePrettyUrl' => true,
     'showScriptName' => false,
     'rules' => [
-        '' => 'site/index',
+//        'backend' => 'backend/web/index',
         '<_a:login|logout>' => 'site/<_a>',
 
         '<_c:[\w\-]+>' => '<_c>/index',

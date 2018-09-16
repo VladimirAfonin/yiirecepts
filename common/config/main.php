@@ -8,10 +8,10 @@ return [
     'bootstrap' => ['log', '\common\bootstrap\SetUp'],
     'components' => [
         'cache' => [
-//            'class' => 'yii\caching\FileCache',
-            'class' => 'yii\caching\MemCache',
-            'useMemcached' => true,
-//            'cachePath' => '@common/runtime/cache',
+            'class' => 'yii\caching\FileCache',
+//            'class' => 'yii\caching\MemCache',
+//            'useMemcached' => true,
+            'cachePath' => '@common/runtime/cache',
         ],
         'cart' => [
             'class' => 'shop\ShoppingCart',

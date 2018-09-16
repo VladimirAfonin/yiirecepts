@@ -2,6 +2,7 @@
 
 return [
     'class' => 'yii\web\UrlManager',
+    'scriptUrl' => '/index.php',
     'hostInfo' => $params['frontendHostInfo'],
     'enablePrettyUrl' => true,
     'showScriptName' => false,
