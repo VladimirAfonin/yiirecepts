@@ -2,6 +2,8 @@
 
 namespace frontend\models;
 
+use frontend\validators\ClientSideWordValidator;
+use frontend\validators\WordsValidator;
 use Yii;
 use yii\base\Model;
 
@@ -25,8 +27,11 @@ class ContactForm extends Model
         return [
             // name, email, subject and body are required
             [['name', 'email', 'subject', 'body'], 'required'],
-            // email has to be a valid email address
+            [['name'], 'unique', 'targetClass' => 'common\models\User', 'targetAttribute' => 'username', 'message' => 'This name has already been taken.'],
+            // email has to be a valid email addressd
             ['email', 'email'],
+//            [['body'], WordsValidator::class, 'size' => 5],
+            [['body'], ClientSideWordValidator::class, 'size' => 5],
             // verifyCode needs to be entered correctly
             ['verifyCode', 'captcha'],
         ];

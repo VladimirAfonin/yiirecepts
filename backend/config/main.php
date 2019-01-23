@@ -20,6 +20,10 @@ return [
             'baseUrl'=>'/admin', // /backend
             'csrfParam' => '_csrf-backend',
             'cookieValidationKey' => $params['cookieValidationKey'],
+            'enableCsrfValidation' => true,
+            'parsers' => [
+                'application/json' => 'yii\web\JsonParser',
+            ],
         ],
         'user' => [
             'identityClass' => 'common\models\User',

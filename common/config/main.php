@@ -17,5 +17,16 @@ return [
             'class' => 'shop\ShoppingCart',
             'sessionKey' => 'primary-cart',
         ],
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager'
+        ],
+        'urlManager' => [
+            'enablePrettyUrl' => true,
+            'enableStrictParsing' => true,
+            'showScriptName' => false,
+            'rules' => [
+//                ['class' => 'yii\rest\UrlRule', 'controller' => 'films'],
+            ],
+        ],
     ],
 ];

@@ -44,7 +44,6 @@ class CustomFilter extends ActionFilter
     protected function canBeDisplayed()
     {
         $hours = date('G');
-//        var_dump($hours); exit('exit');
         return $hours >= self::WORK_TIME_BEGIN && $hours <= self::WORK_TIME_END;
     }
 }

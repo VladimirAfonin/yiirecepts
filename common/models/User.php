@@ -21,10 +21,41 @@ use yii\web\IdentityInterface;
  * @property integer $updated_at
  * @property string $password write-only password
  */
-class User extends ActiveRecord implements IdentityInterface
+class User extends /*yii\base\BaseObject*/
+    ActiveRecord implements IdentityInterface
 {
+    // add roles constants
+    CONST ROLE_USER = 200;
+    CONST ROLE_ADMIN = 100;
+
     const STATUS_DELETED = 0;
     const STATUS_ACTIVE = 10;
+
+    public $id;
+    public $username;
+    public $password;
+    public $authKey;
+    public $accessToken;
+    public $role;
+
+    private static $users = [
+        '100' => [
+            'id' => '100',
+            'username' => 'admin',
+            'password' => 'admin',
+            'authKey' => 'test100key',
+            'accessToken' => '100-token',
+            'role' => USER::ROLE_ADMIN // add admin role for admin user
+        ],
+        '101' => [
+            'id' => '101',
+            'username' => 'demo',
+            'password' => 'demo',
+            'authKey' => 'test101key',
+            'accessToken' => '101-token',
+            'role' => USER::ROLE_USER // add user role for admin user
+        ],
+    ];
 
 
     /**
@@ -51,6 +82,10 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
+            [['username'], 'required'],
+            [['username'], 'unique'],
+            [['username'], 'string', 'min' => 3],
+            [['username'], 'match', 'pattern' => '#^[A-Za-z][A-Za-z0-9]+$#', 'message' => 'Username contain only alphanumeric characters.'],
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
         ];

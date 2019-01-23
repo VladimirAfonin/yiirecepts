@@ -6,4 +6,5 @@ return [
     'cookieDomain' => '.example.dev',
     'frontendHostInfo' => 'http://example2.com',
     'backendHostInfo' => 'http://backend.example.com',
+    'key' => 'mysecretkey',
 ];

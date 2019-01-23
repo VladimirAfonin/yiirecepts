@@ -7,6 +7,14 @@ return [
     'enablePrettyUrl' => true,
     'showScriptName' => false,
     'rules' => [
+        // for rest api:
+        [
+            'class' => 'yii\rest\UrlRule',
+            'controller' => ['super-films' => 'film'],
+//            'controller' => 'film',
+//            'pluralize' => false // 'film' to 'films' in request url
+        ],
+
         '' => 'site/index',
         'cart' => 'shop/cart/index',
         'users' => 'shop/index',

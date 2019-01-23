@@ -3,6 +3,7 @@ namespace frontend\models;
 
 use yii\base\Model;
 use common\models\User;
+use yii\captcha\Captcha;
 
 /**
  * Signup form
@@ -12,6 +13,7 @@ class SignupForm extends Model
     public $username;
     public $email;
     public $password;
+    public $verifyCode;
 
 
     /**
@@ -33,6 +35,7 @@ class SignupForm extends Model
 
             ['password', 'required'],
             ['password', 'string', 'min' => 6],
+            ['verifyCode', 'captcha'],
         ];
     }
 

@@ -9,6 +9,7 @@ use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
 use frontend\assets\AppAsset;
 use common\widgets\Alert;
+use yii\helpers\Url;
 
 AppAsset::register($this);
 ?>
@@ -37,6 +38,11 @@ AppAsset::register($this);
     ]);
     $menuItems = [
         ['label' => 'Cart', 'url' => ['cart']],
+        ['label' => 'Drop down(ajax)', 'url' => Url::to('/dropdown/index')],
+        ['label' => 'Crypto', 'url' => Url::to('/crypto/test')],
+        ['label' => 'File', 'url' => ['/file']],
+        ['label' => 'Range widget', 'url' => ['range']],
+        ['label' => 'Delivery', 'url' => ['delivery']],
         ['label' => 'Users', 'url' => ['/users']],
         ['label' => 'Home', 'url' => ['/site/index']],
         ['label' => 'About', 'url' => ['/site/about']],

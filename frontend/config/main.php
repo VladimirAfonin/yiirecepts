@@ -21,6 +21,10 @@ return [
             'baseUrl'=>'',
             'csrfParam' => '_csrf-frontend',
             'cookieValidationKey' => $params['cookieValidationKey'],
+            'enableCsrfValidation' => true,
+            'parsers' => [
+                'application/json' => '\yii\web\JsonParser',
+            ],
         ],
         'user' => [
             'identityClass' => 'common\models\User',
@@ -34,6 +38,7 @@ return [
                 'domain' => $params['cookieDomain'],
                 'httpOnly' => true,
             ],
+            // 'timeout' => 200,
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,

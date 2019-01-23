@@ -2,6 +2,9 @@
 
 namespace frontend\controllers;
 
+use frontend\forms\DeliveryForm;
+use frontend\forms\RangeForm;
+use frontend\forms\UploadedForm;
 use shop\entities\Article;
 use Yii;
 use yii\base\InvalidParamException;
@@ -16,6 +19,9 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+use yii\web\Response;
+use yii\web\UploadedFile;
+use yii\widgets\ActiveForm;
 
 /**
  * Site controller
@@ -30,7 +36,7 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout', 'signup'],
+//                'only' => ['logout', 'signup'],
                 'rules' => [
                     [
                         'actions' => ['signup'],
@@ -42,6 +48,10 @@ class SiteController extends Controller
                         'allow' => true,
                         'roles' => ['@'],
                     ],
+                    [
+                        'actions' => ['captcha', 'file', 'range', 'delivery', 'contact', 'article'],
+                        'allow' => true,
+                    ]
                 ],
             ],
             'verbs' => [
@@ -63,8 +73,11 @@ class SiteController extends Controller
                 'class' => 'yii\web\ErrorAction',
             ],
             'captcha' => [
-                'class' => 'yii\captcha\CaptchaAction',
-                'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
+//                'class' => 'yii\captcha\CaptchaAction',
+                'class' => 'frontend\components\MathCaptchaAction',
+                'minLength' => 1,
+                'maxLength' => 10,
+//                'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
             ],
         ];
     }
@@ -122,6 +135,12 @@ class SiteController extends Controller
     public function actionContact()
     {
         $model = new ContactForm();
+
+        if (\Yii::$app->request->isAjax && $model->load(\Yii::$app->request->post())) {
+            \Yii::$app->response->format = Response::FORMAT_JSON;
+            return ActiveForm::validate($model);
+        }
+
         if ($model->load(Yii::$app->request->post()) && $model->validate()) {
             if ($model->sendEmail(Yii::$app->params['adminEmail'])) {
                 Yii::$app->session->setFlash('success', 'Thank you for contacting us. We will respond to you as soon as possible.');
@@ -274,5 +293,44 @@ class SiteController extends Controller
     public function actionUrls()
     {
         return $this->render('urls');
+    }
+
+    /**
+     * @return string
+     */
+    public function actionFile()
+    {
+        $uploadForm = new UploadedForm();
+        if (Yii::$app->request->isPost) {
+            $uploadForm->imageFiles = UploadedFile::getInstances($uploadForm, 'imageFiles');
+            if ($uploadForm->upload()) {
+                return $this->renderContent("File  is uploaded successfully");
+            }
+        }
+        return $this->render('file', ['model' => $uploadForm]);
+    }
+
+    /**
+     * @return string
+     */
+    public function actionRange()
+    {
+        $form = new RangeForm();
+        if ($form->load(Yii::$app->request->post()) && $form->validate()) {
+            Yii::$app->session->setFlash('rangeFormSubmitted', 'The form was successfully processed!');
+        }
+        return $this->render('range', ['model' => $form]);
+    }
+
+    /**
+     * @return string
+     */
+    public function actionDelivery()
+    {
+        $form = new DeliveryForm();
+        if ($form->load(Yii::$app->request->post()) && $form->validate()) {
+            Yii::$app->session->setFlash('success', 'the form was successfully processed!');
+        }
+        return $this->render('delivery', ['model' => $form]);
     }
 }

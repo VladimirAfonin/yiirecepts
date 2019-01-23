@@ -8,6 +8,8 @@ return [
     'showScriptName' => false,
     'rules' => [
 //        'backend' => 'backend/web/index',
+//        ['class' => 'yii\rest\UrlRule', 'controller' => 'films'],
+        '' => 'site/index',
         '<_a:login|logout>' => 'site/<_a>',
 
         '<_c:[\w\-]+>' => '<_c>/index',
