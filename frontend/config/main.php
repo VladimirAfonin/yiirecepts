@@ -52,6 +52,19 @@ return [
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
+        'authClientCollection' => [
+            'class' => 'yii\authclient\Collection',
+            'clients' => [
+                'google' => [
+                    'class' => 'yii\authclient\clients\GoogleOpenId',
+                ],
+                'github' => [
+                    'class' => 'yii\authclient\clients\GitHub',
+                    'clientId' => '889816c74a54ea21d4be',
+                    'clientSecret' => '5a920d79253cabb35ed9023970bd24cab0feef61',
+                ],
+            ],
+        ],
 //        'urlManager' => [
 //            'enablePrettyUrl' => true,
 //            'showScriptName' => false,
