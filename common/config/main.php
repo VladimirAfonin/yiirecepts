@@ -28,5 +28,19 @@ return [
 //                ['class' => 'yii\rest\UrlRule', 'controller' => 'films'],
             ],
         ],
+        'response' => [
+            'class' => 'yii\web\Response',
+            'on beforeSend' => function($event) {
+                $response = $event->sender;
+                if($response->data !== null && Yii::$app->request->get('suppress_response')) {
+                    $response->data = [
+                        'success' => $response->isSuccessful,
+                        'timestamp' => time(),
+                        'path' => Yii::$app->request->getPathInfo(),
+                        'data' => $response->data,
+                    ];
+                }
+            },
+        ],
     ],
 ];
