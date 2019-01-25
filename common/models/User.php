@@ -1,11 +1,14 @@
 <?php
 namespace common\models;
 
+use app\models\UserAllowance;
 use Yii;
 use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
+use yii\filters\RateLimitInterface;
 use yii\web\IdentityInterface;
+
 
 /**
  * User model
@@ -21,8 +24,7 @@ use yii\web\IdentityInterface;
  * @property integer $updated_at
  * @property string $password write-only password
  */
-class User extends /*yii\base\BaseObject*/
-    ActiveRecord implements IdentityInterface
+class User extends /*yii\base\BaseObject*/ ActiveRecord implements IdentityInterface/*, RateLimitInterface*/
 {
     // add roles constants
     CONST ROLE_USER = 200;
@@ -30,6 +32,9 @@ class User extends /*yii\base\BaseObject*/
 
     const STATUS_DELETED = 0;
     const STATUS_ACTIVE = 10;
+
+    const RATE_LIMIT_NUMBER = 15;
+    const RATE_LIMIT_RESET = 600;
 
     public $id;
     public $username;
@@ -220,5 +225,52 @@ class User extends /*yii\base\BaseObject*/
     public function removePasswordResetToken()
     {
         $this->password_reset_token = null;
+    }
+
+    /**
+     * Returns the maximum number of allowed requests and the window size.
+     * @param \yii\web\Request $request the current request
+     * @param \yii\base\Action $action the action to be executed
+     * @return array an array of two elements. The first element is the maximum number of allowed requests,
+     * and the second element is the size of the window in seconds.
+     */
+    public function getRateLimit($request, $action)
+    {
+        return [self::RATE_LIMIT_NUMBER, self::RATE_LIMIT_RESET];
+    }
+
+    /**
+     * Loads the number of allowed requests and the corresponding timestamp from a persistent storage.
+     * @param \yii\web\Request $request the current request
+     * @param \yii\base\Action $action the action to be executed
+     * @return array an array of two elements. The first element is the number of allowed requests,
+     * and the second element is the corresponding UNIX timestamp.
+     */
+    public function loadAllowance($request, $action)
+    {
+        $userAllowance = UserAllowance::findOne($this->id);
+
+        return $userAllowance ?
+            [$userAllowance->allowed_number_requests, $userAllowance->last_check_time] :
+            $this->getRateLimit($request, $action);
+    }
+
+    /**
+     * Saves the number of allowed requests and the corresponding timestamp to a persistent storage.
+     * @param \yii\web\Request $request the current request
+     * @param \yii\base\Action $action the action to be executed
+     * @param int $allowance the number of allowed requests remaining.
+     * @param int $timestamp the current timestamp.
+     */
+    public function saveAllowance($request, $action, $allowance, $timestamp)
+    {
+        $userAllowance = ($allowanceModel = UserAllowance::findOne($this->id)) ?
+            $allowanceModel :
+            new UserAllowance();
+
+        $userAllowance->user_id = $this->id;
+        $userAllowance->last_check_time = $timestamp;
+        $userAllowance->allowed_number_requests = $allowance;
+        $userAllowance->save();
     }
 }

@@ -5,6 +5,7 @@ namespace frontend\controllers;
 use common\models\User;
 use shop\entities\Film;
 use yii\filters\auth\HttpBasicAuth;
+use yii\filters\RateLimiter;
 use yii\helpers\ArrayHelper;
 use yii\rest\ActiveController;
 use yii\web\Response;
@@ -26,6 +27,11 @@ class FilmController extends ActiveController
         $behaviors = parent::behaviors();
         $behaviors['contentNegotiator']['formats']['application/xml'] = Response::FORMAT_XML;
 
+        /*$bahaviors['rateLimiter'] = [
+            'class' => RateLimiter::class,
+            'enableRateLimitHeaders' => true,
+        ];*/
+
         return ArrayHelper::merge($behaviors, [
             'authenticator' => [
                 'authMethods' => [
@@ -39,7 +45,7 @@ class FilmController extends ActiveController
                             return null;
                         }
                     ],
-                ]
+                ],
             ]
         ]);
     }

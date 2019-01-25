@@ -10,9 +10,13 @@ return [
         // for rest api:
         [
             'class' => 'yii\rest\UrlRule',
-            'controller' => ['super-films' => 'film'],
+            'controller' => ['v1/super-films' => 'v1/film'],
 //            'controller' => 'film',
 //            'pluralize' => false // 'film' to 'films' in request url
+        ],
+        [
+            'class' => 'yii\rest\UrlRule',
+            'controller' => ['v2/super-films' => 'v2/film'], l
         ],
 
         '' => 'site/index',

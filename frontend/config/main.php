@@ -71,5 +71,13 @@ return [
             return Yii::$app->get('frontendUrlManager');
         },
     ],
+    'modules' => [
+        'v1' => [
+            'class' => 'frontend\modules\v1\Module'
+        ],
+        'v2' => [
+            'class' => 'frontend\modules\v2\Module'
+        ],
+    ],
     'params' => $params,
 ];
