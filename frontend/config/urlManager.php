@@ -16,7 +16,7 @@ return [
         ],
         [
             'class' => 'yii\rest\UrlRule',
-            'controller' => ['v2/super-films' => 'v2/film'], l
+            'controller' => ['v2/super-films' => 'v2/film'],
         ],
 
         '' => 'site/index',
