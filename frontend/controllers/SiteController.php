@@ -49,7 +49,7 @@ class SiteController extends Controller
                         'roles' => ['@'],
                     ],
                     [
-                        'actions' => ['captcha', 'file', 'range', 'delivery', 'contact', 'article'],
+                        'actions' => ['captcha', 'file', 'range', 'delivery', 'contact', 'article', 'login', 'index', 'about'],
                         'allow' => true,
                     ]
                 ],
