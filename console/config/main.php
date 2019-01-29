@@ -18,9 +18,20 @@ return [
     'controllerMap' => [
         'fixture' => [
             'class' => 'yii\console\controllers\FixtureController',
-            'namespace' => 'common\fixtures',
-            'useFileTransport' => false,
+            'fixtureDataPath' => '@common/tests/fixtures',
+            'templatePath' => '@common/tests/templates',
+            'namespace' => 'common\tests\fixtures',
+            // 'useFileTransport' => false,
           ],
+        'faker_fixture' => [
+            'class'           => 'yii\faker\FixtureController',
+            'namespace'       => 'common\fixtures',
+            'fixtureDataPath' => '@common/tests/_data',
+            'templatePath'    => '@common/fixtures/templates',
+            'providers' => [
+                'common\fixtures\providers\UserStatus'
+            ],
+        ],
     ],
     'components' => [
         'log' => [
