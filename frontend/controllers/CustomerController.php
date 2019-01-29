@@ -6,6 +6,7 @@ use Yii;
 use app\models\Customer;
 use app\models\CustomerSearch;
 use yii\filters\AccessControl;
+use yii\mongodb\Query;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -47,10 +48,22 @@ class CustomerController extends Controller
      */
     public function actionIndex()
     {
+        // get data from mongodb
+        /* $collection = \Yii::$app->mongodb->getCollection('customer');
+         $collection->insert(['name' => 'John Smith', 'status' => 5]);
+
+         $query = new Query();
+         $query->select(['name', 'status'])
+             ->from('customer')
+             ->limit(10);
+
+         $rows = $query->all();*/
+
         $searchModel = new CustomerSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
+            'rows' => $rows ?? [],
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);

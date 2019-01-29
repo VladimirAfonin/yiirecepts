@@ -11,6 +11,9 @@ $this->title = 'Customers';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="customer-index">
+    <h3>Data from mongo db </h3>
+    <?= \yii\helpers\VarDumper::dumpAsString($rows); ?>
+
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
