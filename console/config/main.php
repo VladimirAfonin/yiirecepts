@@ -32,6 +32,10 @@ return [
                 'common\fixtures\providers\UserStatus'
             ],
         ],
+        /*'mongodb-migrate' => [
+            'class' => 'yii\mongodb\console\controllers\MigrateController'
+        ],*/
+        'mongodb-migrate' => 'yii\mongodb\console\controllers\MigrateController'
     ],
     'components' => [
         'log' => [
