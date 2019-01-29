@@ -39,9 +39,14 @@ class ShopController extends Controller
             'query' => User::find(),
         ]);
 
-        return $this->render('index', [
-            'dataProvider' => $dataProvider,
-        ]);
+        if(Yii::$app->request->isPjax) {
+            return $this->renderPartial('index', ['dataProvider' => $dataProvider,]);
+        } else {
+            return $this->render('index', [
+                'dataProvider' => $dataProvider,
+            ]);
+        }
+
     }
 
     /**
