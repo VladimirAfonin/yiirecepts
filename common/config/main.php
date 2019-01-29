@@ -42,5 +42,16 @@ return [
                 }
             },
         ],
+        'mailer' => [
+            'class' => 'yii\swiftmailer\Mailer',
+            'transport' => [
+                'class' => 'Swift_SmtpTransport',
+                'host' => 'smtp.gmail.com',
+                'username' => 'username@gmail.com',
+                'password' => 'password',
+                'post' => '587',
+                'encryption' => 'tls',
+            ],
+        ],
     ],
 ];
