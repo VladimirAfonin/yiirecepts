@@ -5,11 +5,13 @@ namespace frontend\controllers;
 use frontend\forms\DeliveryForm;
 use frontend\forms\RangeForm;
 use frontend\forms\UploadedForm;
+use Imagine\Image\ManipulatorInterface;
 use shop\entities\Article;
 use Yii;
 use yii\base\InvalidParamException;
 use yii\db\ActiveRecord;
 use yii\helpers\VarDumper;
+use yii\imagine\Image;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
@@ -332,5 +334,11 @@ class SiteController extends Controller
             Yii::$app->session->setFlash('success', 'the form was successfully processed!');
         }
         return $this->render('delivery', ['model' => $form]);
+    }
+
+
+    public function actionImage()
+    {
+        return Image::crop('path/to/image.jpg', 100, 100, ManipulatorInterface::THUMBNAIL_OUTBOUND)->save('path/to/destination/image.jpg', ['quality' => 90]);
     }
 }
