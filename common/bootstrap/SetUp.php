@@ -2,6 +2,8 @@
 
 namespace common\bootstrap;
 
+use Elasticsearch\Client;
+use Elasticsearch\ClientBuilder;
 use shop\ShoppingCart;
 use shop\storage\StorageInterface;
 use yii\base\Application;
@@ -25,6 +27,11 @@ class SetUp implements BootstrapInterface
         // SessionStorage
         $container->set('\shop\storage\StorageInterface', function () {
             return new SessionStorage(Yii::$app->session, 'primary-cart');
+        });
+
+        // ElasticSearch
+        $container->setSingleton(Client::class, function () use ($app) {
+            return ClientBuilder::create()->build();
         });
 
     }

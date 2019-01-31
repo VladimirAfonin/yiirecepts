@@ -167,6 +167,14 @@ class User extends /*yii\base\BaseObject*/ ActiveRecord implements IdentityInter
     }
 
     /**
+     * @return string
+     */
+    public function getUserName()
+    {
+        return $this->username;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function getAuthKey()
