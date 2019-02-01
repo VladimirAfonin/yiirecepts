@@ -24,6 +24,8 @@ return [
         'users' => 'shop/index',
         'flash' => 'flash/index',
 
+        'clean' => '/clean/index',
+
         '<_action:[\w\-]+>' => 'site/<_action>',
         '<_c:[\w\-]+>' => '<_c>/index',
         '<_c:[\w\-]+>/<id:\d+>' => '<_c>/view',

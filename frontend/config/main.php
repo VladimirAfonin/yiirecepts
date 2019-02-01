@@ -10,6 +10,20 @@ return [
     'id' => 'app-frontend',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log', '\common\bootstrap\SetUp'],
+    'controllerMap' => [
+        'clean' => [
+            'class' => '\common\clean\CleanController',
+            'assetPaths' => [
+                '@backend/web/assets',
+                '@frontend/web/assets'
+            ],
+            'runtimePaths' => [
+                '@backend/runtime',
+                '@frontend/runtime',
+                '@console/runtime',
+            ],
+        ],
+    ],
     /* 'container' => [
          'singletons' => [
              'shop\ShoppingCart',

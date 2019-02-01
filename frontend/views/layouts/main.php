@@ -37,6 +37,7 @@ AppAsset::register($this);
         ],
     ]);
     $menuItems = [
+        ['label' => 'Cleaner', 'url' => ['/clean/index']],
         ['label' => 'Cart', 'url' => ['cart']],
         ['label' => 'Drop down(ajax)', 'url' => Url::to('/dropdown/index')],
         ['label' => 'Crypto', 'url' => Url::to('/crypto/test')],
