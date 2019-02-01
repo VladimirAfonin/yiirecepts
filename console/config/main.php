@@ -50,6 +50,13 @@ return [
             'class' => 'yii\swiftmailer\Mailer',
 
         ],
+        'cache' => [
+            'class' => 'yii\caching\FileCache',
+        ],
+        'exchange' => [
+            'class' => 'frontend\components\Exchange',
+            'enableCaching' => true,
+        ],
         'backendUrlManager' => require __DIR__ . '/../../backend/config/urlManager.php',
         'frontendUrlManager' => require __DIR__ . '/../../frontend/config/urlManager.php',
         /*'authManager' => [
