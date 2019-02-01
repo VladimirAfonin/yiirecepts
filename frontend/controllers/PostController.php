@@ -3,6 +3,7 @@
 namespace frontend\controllers;
 
 use frontend\actions\CreateAction;
+use frontend\actions\CustomDeleteAction;
 use frontend\actions\DeleteAction;
 use frontend\actions\IndexAction;
 use frontend\actions\ViewAction;
@@ -39,7 +40,8 @@ class PostController extends Controller
                 'modelClass' => $this->modelClass,
             ],
             'delete' => [
-                'class' => DeleteAction::class,
+//                'class' => DeleteAction::class,
+                'class' => CustomDeleteAction::class,
                 'modelClass' => $this->modelClass,
             ],
             'view' => [

@@ -14,7 +14,14 @@ use yii\widgets\LinkPager;
     <p><?= Html::encode($model->content); ?></p>
     <p>
         <?= Html::a('view', Url::toRoute(['post/view', 'id' => $model->id])); ?> |
-        <?= Html::a('delete', Url::toRoute(['post/delete', 'id' => $model->id])); ?>
+        <?= Html::a('delete', Url::toRoute(['post/delete', 'id' => $model->id])); ?> |
+        <?= Html::a('delete with confirm', Url::toRoute(['post/delete', 'id' => $model->id]), [
+                'class' => 'btn btn-outline-danger btn-sm',
+                'data' => [
+                    'confirm' => 'Are your sure?',
+                    'method' => 'post'
+                ],
+        ]); ?>
     </p>
 <?php endforeach; ?>
 
