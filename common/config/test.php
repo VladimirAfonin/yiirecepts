@@ -8,8 +8,8 @@ return [
             'identityClass' => 'common\models\User',
             'identityCookie' => new \yii\helpers\ReplaceArrayValue(['name' => '_identity', 'httpOnly' => true]),
         ],
-        'request' => [
+        /*'request' => [
             'cookieValidationKey' => 'test',
-        ],
+        ],*/
     ],
 ];
