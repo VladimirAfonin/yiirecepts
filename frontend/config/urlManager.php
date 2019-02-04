@@ -25,6 +25,8 @@ return [
         'flash' => 'flash/index',
 
         'clean' => '/clean/index',
+        'customer' => '/customer/index',
+        'redis' => '/redis/index',
 
         '<_action:[\w\-]+>' => 'site/<_action>',
         '<_c:[\w\-]+>' => '<_c>/index',
