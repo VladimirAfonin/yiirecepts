@@ -24,13 +24,17 @@ return [
         'users' => 'shop/index',
         'flash' => 'flash/index',
 
+//        '<_action:[\w\-]+>' => 'site/<_action>',
+        '<_c:[\w\-]+>' => '<_c>/index',
+
         'clean' => '/clean/index',
         'customer' => '/customer/index',
         'redis' => '/redis/index',
         'chart' => '/chart/index',
+        'content' => '/content/index',
 
-        '<_action:[\w\-]+>' => 'site/<_action>',
-        '<_c:[\w\-]+>' => '<_c>/index',
+
+
         '<_c:[\w\-]+>/<id:\d+>' => '<_c>/view',
         '<_c:[\w\-]+>/<_a:[\w-]+>' => '<_c>/<_a>',
         '<_c:[\w\-]+>/<id:\d+>/<_a:[\w\-]+>' => '<_c>/<_a>',

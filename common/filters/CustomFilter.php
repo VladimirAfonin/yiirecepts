@@ -1,6 +1,6 @@
 <?php
 
-namespace frontend\components;
+namespace common\filters;
 
 use yii\base\ActionFilter;
 use yii\web\HttpException;

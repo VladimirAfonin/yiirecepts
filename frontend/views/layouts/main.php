@@ -37,19 +37,20 @@ AppAsset::register($this);
         ],
     ]);
     $menuItems = [
+        ['label' => 'Agreement filter', 'url' => ['/content/index']],
         ['label' => 'Chart', 'url' => ['/chart/index']],
         ['label' => 'Cleaner', 'url' => ['/clean/index']],
         ['label' => 'Redis', 'url' => ['/redis/index']],
         ['label' => 'Mongodb', 'url' => ['/customer/index']],
-        ['label' => 'Cart', 'url' => ['cart']],
+        ['label' => 'Cart', 'url' => Url::to('/cart')],
         ['label' => 'Drop down(ajax)', 'url' => Url::to('/dropdown/index')],
         ['label' => 'Crypto', 'url' => Url::to('/crypto/test')],
         ['label' => 'File', 'url' => ['/file']],
         ['label' => 'Range widget', 'url' => ['range']],
         ['label' => 'Delivery', 'url' => ['delivery']],
         ['label' => 'Users', 'url' => ['/users']],
-        ['label' => 'Home', 'url' => ['/site/index']],
-        ['label' => 'About', 'url' => ['/site/about']],
+//        ['label' => 'Home', 'url' => ['/site/index']],
+//        ['label' => 'About', 'url' => ['/site/about']],
         ['label' => 'Contact', 'url' => ['/site/contact']],
     ];
     if (Yii::$app->user->isGuest) {

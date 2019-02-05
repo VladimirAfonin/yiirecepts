@@ -9,7 +9,7 @@ use frontend\actions\IndexAction;
 use frontend\actions\ViewAction;
 use shop\entities\Post;
 use yii\web\Controller;
-use frontend\components\CustomFilter;
+use common\filters\CustomFilter;
 
 class PostController extends Controller
 {
