@@ -37,6 +37,7 @@ AppAsset::register($this);
         ],
     ]);
     $menuItems = [
+        ['label' => 'Chart', 'url' => ['/chart/index']],
         ['label' => 'Cleaner', 'url' => ['/clean/index']],
         ['label' => 'Redis', 'url' => ['/redis/index']],
         ['label' => 'Mongodb', 'url' => ['/customer/index']],

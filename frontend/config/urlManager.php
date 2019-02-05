@@ -27,6 +27,7 @@ return [
         'clean' => '/clean/index',
         'customer' => '/customer/index',
         'redis' => '/redis/index',
+        'chart' => '/chart/index',
 
         '<_action:[\w\-]+>' => 'site/<_action>',
         '<_c:[\w\-]+>' => '<_c>/index',
