@@ -10,13 +10,12 @@ class LogReaderService
     public function getRows($file)
     {
         $result = [];
-        $handle = @fopen($file,'r');
-
+        $handle = @fopen($file, "r");
         if ($handle) {
             while (($row = fgets($handle)) !== false) {
                 $pattern =
                     '#^' .
-                    '(?P<time>\d{4}\-\d{2}\-\d{2}\d{2}:\d{2}:\d{2})' .
+                    '(?P<time>\d{4}\-\d{2}\-\d{2} \d{2}:\d{2}:\d{2}) ' .
                     '\[(?P<ip>[^\]]+)\]' .
                     '\[(?P<userId>[^\]]+)\]' .
                     '\[(?P<sessionId>[^\]]+)\]' .
@@ -25,9 +24,8 @@ class LogReaderService
                     ' (?P<text>.*?)' .
                     '(\$\_(GET|POST|REQUEST|COOKIE|SERVER) = \[)?' .
                     '$#i';
-
-                if(preg_match($pattern, $row, $matches)) {
-                    if($matches['text']) {
+                if (preg_match($pattern, $row, $matches)) {
+                    if ($matches['text']) {
                         $result[] = new LogRow([
                             'time' => $matches['time'],
                             'ip' => $matches['ip'],

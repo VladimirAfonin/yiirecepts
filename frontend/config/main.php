@@ -99,7 +99,9 @@ return [
         },
     ],
     'modules' => [
-        'log' => 'frontend\modules\log\Module',
+        'log' => [
+            'class' => 'frontend\modules\log\Module'
+        ],
         'v1' => [
             'class' => 'frontend\modules\v1\Module'
         ],

@@ -25,6 +25,6 @@ class LogHelper
 
         $class = ArrayHelper::getValue($classes, $level, 'default');
 
-        return Html::tag('span', Html::encode($level), ['class' => 'badge-' . $class]);
+        return Html::tag('span', Html::encode($level), ['class' => 'label label-' . $class]);
     }
 }

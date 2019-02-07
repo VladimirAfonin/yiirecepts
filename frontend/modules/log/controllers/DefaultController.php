@@ -14,6 +14,7 @@ class DefaultController extends Controller
     public function actionIndex()
     {
         $reader = new LogReaderService();
+
         $dataProvider = new ArrayDataProvider([
             'allModels' => $reader->getRows($this->getFile()),
         ]);
