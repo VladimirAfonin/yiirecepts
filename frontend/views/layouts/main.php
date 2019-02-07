@@ -37,6 +37,7 @@ AppAsset::register($this);
         ],
     ]);
     $menuItems = [
+        ['label' => 'Logs', 'url' => ['/log/default/index']],
         ['label' => 'Agreement filter', 'url' => ['/content/index']],
         ['label' => 'Chart', 'url' => ['/chart/index']],
         ['label' => 'Cleaner', 'url' => ['/clean/index']],
