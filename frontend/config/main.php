@@ -55,6 +55,9 @@ return [
             'identityCookie' => ['name' => '_identity', 'httpOnly' => true, 'domain' => $params['cookieDomain']],
         ],
         'session' => [
+            'class' => 'yii\web\CacheSession',
+//            'class' => 'yii\web\DbSession', // only this
+            'cache' => 'sessionCache',
             // this is the name of the session cookie used for login on the frontend
             'name' => '_session',
             'cookieParams' => [
@@ -62,6 +65,10 @@ return [
                 'httpOnly' => true,
             ],
             // 'timeout' => 200,
+        ],
+        'sessionCache' => [
+            'class' => 'yii\caching\MemCache',
+            'useMemcached' => true,
         ],
         'log' => [
             'traceLevel' => YII_DEBUG ? 3 : 0,

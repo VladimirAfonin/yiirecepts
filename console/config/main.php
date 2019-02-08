@@ -38,6 +38,15 @@ return [
         'mongodb-migrate' => 'yii\mongodb\console\controllers\MigrateController'
     ],
     'components' => [
+        'session' => [
+            'class' => 'yii\web\Session',
+        ],
+        'user' => [
+            'class' => 'yii\web\User',
+            'identityClass' => 'common\models\User',
+            'enableSession' => false,
+            'enableAutoLogin' => false,
+        ],
         'log' => [
             'targets' => [
                 [

@@ -24,6 +24,10 @@ return [
 //            'useMemcached' => true,
             'cachePath' => '@common/runtime/cache',
         ],
+        'cache2' => [
+            'class' => 'yii\caching\MemCache',
+            'useMemcached' => true,
+        ],
         'cart' => [
             'class' => 'shop\ShoppingCart',
             'sessionKey' => 'primary-cart',
