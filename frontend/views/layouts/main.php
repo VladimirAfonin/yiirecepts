@@ -37,6 +37,7 @@ AppAsset::register($this);
         ],
     ]);
     $menuItems = [
+        ['label' => 'Session chain', 'url' => ['/session-chain/index']],
         ['label' => 'Smarty', 'url' => ['/smarty/index']],
         ['label' => Yii::t('app/nav', 'Logs'), 'url' => ['/log/default/index']],
         ['label' => Yii::t('app/nav', 'Agreement filter'), 'url' => ['/content/index']],
