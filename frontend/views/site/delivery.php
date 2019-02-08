@@ -20,7 +20,6 @@ use yii\widgets\Pjax;
         <?= Html::submitButton('Submit', ['class' => 'btn btn-primary']) ?>
     </div>
     <?php ActiveForm::end(); ?>
-
 <?php Pjax::end(); ?>
 
 <?php $this->registerJs("

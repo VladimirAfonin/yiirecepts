@@ -30,7 +30,16 @@ return [
          ],
      ],*/
     'controllerNamespace' => 'frontend\controllers',
+    'language' => 'de',
     'components' => [
+        'i18n' => [
+            'translations' => [
+                'app*' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'sourceLanguage' => 'en-US'
+                ],
+            ],
+        ],
         'request' => [
             'baseUrl'=>'',
             'csrfParam' => '_csrf-frontend',

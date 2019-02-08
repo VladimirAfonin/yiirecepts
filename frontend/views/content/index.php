@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 
-$this->title = 'Content';
+$this->title =  Yii::t('app', 'Content');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-about">

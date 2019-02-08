@@ -38,11 +38,11 @@ AppAsset::register($this);
     ]);
     $menuItems = [
         ['label' => 'Smarty', 'url' => ['/smarty/index']],
-        ['label' => 'Logs', 'url' => ['/log/default/index']],
-        ['label' => 'Agreement filter', 'url' => ['/content/index']],
-        ['label' => 'Chart', 'url' => ['/chart/index']],
-        ['label' => 'Cleaner', 'url' => ['/clean/index']],
-        ['label' => 'Redis', 'url' => ['/redis/index']],
+        ['label' => Yii::t('app/nav', 'Logs'), 'url' => ['/log/default/index']],
+        ['label' => Yii::t('app/nav', 'Agreement filter'), 'url' => ['/content/index']],
+        ['label' => Yii::t('app/nav', 'Chart'), 'url' => ['/chart/index']],
+        ['label' => Yii::t('app/nav', 'Cleaner'), 'url' => ['/clean/index']],
+        ['label' => Yii::t('app/nav', 'Redis'), 'url' => ['/redis/index']],
         ['label' => 'Mongodb', 'url' => ['/customer/index']],
         ['label' => 'Cart', 'url' => Url::to('/cart')],
         ['label' => 'Drop down(ajax)', 'url' => Url::to('/dropdown/index')],

@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use common\widgets\ChartWidget;
 
-$this->title = 'Chart';
+$this->title = Yii::t('app', 'Chart');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 

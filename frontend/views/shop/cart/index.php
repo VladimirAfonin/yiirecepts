@@ -9,7 +9,7 @@ use yii\grid\GridView;
 use yii\grid\SerialColumn;
 use yii\grid\ActionColumn;
 
-$this->title = 'Cart';
+$this->title =  Yii::t('app', 'Cart');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="cart-index">
