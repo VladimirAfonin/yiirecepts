@@ -30,7 +30,7 @@ return [
          ],
      ],*/
     'controllerNamespace' => 'frontend\controllers',
-    'language' => 'de',
+    'language' => 'en',
     'components' => [
         'i18n' => [
             'translations' => [

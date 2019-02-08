@@ -34,5 +34,10 @@ class SetUp implements BootstrapInterface
             return ClientBuilder::create()->build();
         });
 
+        // Language
+        if(!$app->user->isGuest) {
+            $app->language = $app->user->identity->lang;
+        }
+
     }
 }
