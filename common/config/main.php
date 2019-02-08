@@ -7,6 +7,13 @@ return [
     'vendorPath' => dirname(dirname(__DIR__)) . '/vendor',
     'bootstrap' => ['log', '\common\bootstrap\SetUp'],
     'components' => [
+        'view' => [
+            'renderers' => [
+                'tpl' => [
+                    'class' => 'common\renders\smarty\ViewRenderer'
+                ],
+            ],
+        ],
         /*'mongodb' => [
             'class' => '\yii\mongodb\Connection',
             'dsn' => 'mongodb://localhost:27017/mydatabase'
