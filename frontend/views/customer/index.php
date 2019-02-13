@@ -21,6 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a('Create Customer', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
+    <?php \Yii::beginProfile('articles'); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -37,4 +38,5 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
+    <?php \Yii::endProfile('articles'); ?>
 </div>
