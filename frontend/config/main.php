@@ -32,6 +32,9 @@ return [
     'controllerNamespace' => 'frontend\controllers',
     'language' => 'en',
     'components' => [
+        'assetManager' => [
+            'bundles' => (require __DIR__ . '/../../common/config/assets_prod.php')
+        ],
         'i18n' => [
             'translations' => [
                 'app*' => [
