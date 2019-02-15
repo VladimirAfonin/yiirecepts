@@ -35,7 +35,10 @@ return [
         /*'mongodb-migrate' => [
             'class' => 'yii\mongodb\console\controllers\MigrateController'
         ],*/
-        'mongodb-migrate' => 'yii\mongodb\console\controllers\MigrateController'
+        'mongodb-migrate' => [
+            'class' => 'yii\mongodb\console\controllers\MigrateController',
+            'migrationPath' => '@console/migrations/mongo',
+        ],
     ],
     'components' => [
         'session' => [

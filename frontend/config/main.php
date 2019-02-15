@@ -10,6 +10,8 @@ return [
     'id' => 'app-frontend',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log', '\common\bootstrap\SetUp'],
+    'runtimePath' => '@frontend/tmp/runtime',
+//    'vendorPath' => dirname(__DIR__) . '/../vendor',
     'controllerMap' => [
         'clean' => [
             'class' => '\common\clean\CleanController',
