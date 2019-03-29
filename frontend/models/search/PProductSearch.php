@@ -12,6 +12,7 @@ use frontend\models\PProduct;
  */
 class PProductSearch extends PProduct
 {
+    public $tag_id;
     /**
      * {@inheritdoc}
      */
@@ -19,7 +20,7 @@ class PProductSearch extends PProduct
     {
         return [
             [['id', 'category_id', 'price', 'active'], 'integer'],
-            [['name', 'content'], 'safe'],
+            [['name', 'content', 'tag_id',], 'safe'],
         ];
     }
 
@@ -41,7 +42,7 @@ class PProductSearch extends PProduct
      */
     public function search($params)
     {
-        $query = PProduct::find();
+        $query = PProduct::find()->with(['category', 'tags'])->joinWith(['productTags'], false);
 
         // add conditions that should always apply here
 
@@ -63,6 +64,7 @@ class PProductSearch extends PProduct
             'category_id' => $this->category_id,
             'price' => $this->price,
             'active' => $this->active,
+            'product_tag.tag_id' => $this->tag_id,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])

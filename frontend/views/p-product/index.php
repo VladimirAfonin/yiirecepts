@@ -38,6 +38,13 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
             'content:ntext',
             'price',
+            [
+                'label' => 'Tags',
+                'filter' => \frontend\models\Tag::find()->select(['name', 'id'])->indexBy('id')->column(),
+                'value' => function (PProduct $product) {
+                    return implode(', ', \yii\helpers\ArrayHelper::map($product->tags, 'id', 'name'));
+                },
+            ],
             //'active',
 
             ['class' => 'yii\grid\ActionColumn'],
