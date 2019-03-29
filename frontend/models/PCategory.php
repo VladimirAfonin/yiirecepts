@@ -17,6 +17,8 @@ use Yii;
  */
 class PCategory extends \yii\db\ActiveRecord
 {
+    public $products_count;
+
     /**
      * {@inheritdoc}
      */
@@ -32,7 +34,7 @@ class PCategory extends \yii\db\ActiveRecord
     {
         return [
             [['name'], 'required'],
-            [['parent_id'], 'integer'],
+            [['parent_id', 'products_count'], 'integer'],
             [['name'], 'string', 'max' => 255],
             [['parent_id'], 'exist', 'skipOnError' => true, 'targetClass' => PCategory::className(), 'targetAttribute' => ['parent_id' => 'id']],
         ];

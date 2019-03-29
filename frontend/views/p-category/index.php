@@ -36,6 +36,10 @@ $this->params['breadcrumbs'][] = $this->title;
 //                },
             ],
 //            'parent_id',
+            [
+                'label' => 'Products count',
+                'attribute' => 'products_count',
+            ],
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

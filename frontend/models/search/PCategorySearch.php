@@ -6,6 +6,7 @@ use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use frontend\models\PCategory;
+use yii\db\Expression;
 
 /**
  * PCategorySearch represents the model behind the search form of `frontend\models\PCategory`.
@@ -41,7 +42,11 @@ class PCategorySearch extends PCategory
      */
     public function search($params)
     {
-        $query = PCategory::find();
+        $query = PCategory::find()
+            ->select(['p_category.*', 'products_count' => new Expression('COUNT(p_product.id)')])
+            ->joinWith(['pProducts'], false)
+            ->groupBy('p_category.id')
+            ->with(['parent']);
 
         // add conditions that should always apply here
 
