@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use frontend\models\PCategory;
 
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\search\PCategorySearch */
@@ -24,10 +25,17 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
             'id',
             'name',
-            'parent_id',
+            [
+                'attribute' => 'parent_id',
+                'filter' => \frontend\models\PCategory::find()->select(['name', 'id'])->indexBy('id')->column(),
+                'value' => 'parent.name', // function(PCategory $category) {
+//                    return $category->parent ? $category->parent->name : '-';
+//                    return \yii\helpers\ArrayHelper::getValue($category, 'parent.name');
+//                },
+            ],
+//            'parent_id',
 
             ['class' => 'yii\grid\ActionColumn'],
         ],

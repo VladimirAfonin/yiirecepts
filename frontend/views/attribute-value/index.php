@@ -26,7 +26,11 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'product_id',
-            'attribute_id',
+            [
+                'attribute' => 'attribute_id',
+                'filter' => \frontend\models\Attribute::find()->select(['name', 'id'])->select('id')->column(),
+            ],
+
             'value',
 
             ['class' => 'yii\grid\ActionColumn'],

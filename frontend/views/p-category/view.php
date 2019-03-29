@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\helpers\ArrayHelper;
 
 /* @var $this yii\web\View */
 /* @var $model frontend\models\PCategory */
@@ -30,7 +31,11 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             'id',
             'name',
-            'parent_id',
+//            'parent_id',
+            [
+                'attribute' => 'parent_id',
+                'value' => ArrayHelper::getValue($model, 'parent.name'),
+            ]
         ],
     ]) ?>
 

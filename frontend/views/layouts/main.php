@@ -37,10 +37,12 @@ AppAsset::register($this);
         ],
     ]);
     $menuItems = [
-        ['label' => 'Products', 'url' => Url::to('/products/index')],
+        ['label' => 'PProducts', 'url' => Url::to('/p-product/index')],
         ['label' => 'PCategories', 'url' => Url::to('/p-category/index')],
         ['label' => 'Attributes', 'url' => Url::to('/attribute/index')],
-        ['label' => 'AttributeValues', 'url' => Url::to('/attributes/index')],
+        ['label' => 'AttributeValues', 'url' => Url::to('/attribute-value/index')],
+        ['label' => 'Product tags', 'url' => Url::to('/product-tag/index')],
+        ['label' => 'Tag', 'url' => Url::to('/tag/index')],
         ['label' => 'Session chain', 'url' => ['/session-chain/index']],
         ['label' => 'Smarty', 'url' => ['/smarty/index']],
         ['label' => Yii::t('app/nav', 'Logs'), 'url' => ['/log/default/index']],

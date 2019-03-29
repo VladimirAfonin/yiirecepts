@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use frontend\models\PProduct;
 
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\search\PProductSearch */
@@ -26,7 +27,14 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            'category_id',
+//            'category_id',
+            [
+                'attribute' => 'category_id',
+                'filter' => \frontend\models\PCategory::find()->select(['name', 'id'])->indexBy('id')->column(),
+                'value' => function (PProduct $product) {
+                    return $product->category->name;
+                },
+            ],
             'name',
             'content:ntext',
             'price',
