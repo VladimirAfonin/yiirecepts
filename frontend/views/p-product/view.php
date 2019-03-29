@@ -33,8 +33,32 @@ $this->params['breadcrumbs'][] = $this->title;
             'name',
             'content:ntext',
             'price',
-            'active',
+//            'active:boolean',
+            [
+                'attribute' => 'active',
+                'filter' => [0 => 'Нет', 1 => 'Даee'],
+                'format' => 'boolean',
+            ],
         ],
     ]) ?>
+
+    <?=
+    \yii\grid\GridView::widget([
+        'dataProvider' => new \yii\data\ActiveDataProvider(['query' => $model->getAttributeValues()->with('attribute0')]),
+        'columns' => [
+            'product_id',
+            [
+                'attribute' => 'attribute_id',
+                'value' => 'attribute0.name',
+            ],
+            'value',
+            [
+                'class' => 'yii\grid\ActionColumn',
+                'controller' => 'attribute-value',
+            ]
+        ],
+    ]);
+
+    ?>
 
 </div>

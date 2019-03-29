@@ -30,7 +30,7 @@ $this->params['breadcrumbs'][] = $this->title;
 //            'category_id',
             [
                 'attribute' => 'category_id',
-                'filter' => \frontend\models\PCategory::find()->select(['name', 'id'])->indexBy('id')->column(),
+                'filter' => \frontend\models\PCategory::find()->with('category')->select(['name', 'id'])->indexBy('id')->column(),
                 'value' => function (PProduct $product) {
                     return $product->category->name;
                 },
