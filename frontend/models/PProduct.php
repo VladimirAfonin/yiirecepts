@@ -22,6 +22,8 @@ use Yii;
  */
 class PProduct extends \yii\db\ActiveRecord
 {
+    private $_tagsArray;
+
     /**
      * {@inheritdoc}
      */
@@ -39,6 +41,7 @@ class PProduct extends \yii\db\ActiveRecord
             [['category_id', 'price', 'active'], 'integer'],
             [['name', 'price'], 'required'],
             [['content'], 'string'],
+            [['tagsArray'], 'safe'],
             [['name'], 'string', 'max' => 255],
             [['category_id'], 'exist', 'skipOnError' => true, 'targetClass' => PCategory::className(), 'targetAttribute' => ['category_id' => 'id']],
         ];
@@ -106,5 +109,57 @@ class PProduct extends \yii\db\ActiveRecord
     public static function find()
     {
         return new \frontend\models\query\PProductQuery(get_called_class());
+    }
+
+    /**
+     * getter for virtual property tags
+     *
+     * @return array
+     */
+    public function getTagsArray()
+    {
+        if ($this->_tagsArray === null) {
+            $this->_tagsArray = $this->getTags()->select('id')->column();
+        }
+        return $this->_tagsArray;
+    }
+
+    /**
+     * @param $value
+     */
+    public function setTagsArray($value)
+    {
+        $this->_tagsArray = (array)$value;
+    }
+
+    /**
+     * @param bool $insert
+     * @param array $changedAttributes
+     */
+    public function afterSave($insert, $changedAttributes)
+    {
+        $this->updateTags();
+        parent::afterSave($insert, $changedAttributes);
+    }
+
+    /**
+     * logic for tags
+     */
+    public function updateTags()
+    {
+        $currentTagIds = $this->getTags()->select('id')->column();
+        $newTagIds = $this->getTagsArray();
+
+        foreach (array_filter(array_diff($newTagIds, $currentTagIds)) as $tagId) {
+            if ($tag = Tag::findOne($tagId)) {
+                $this->link('tags', $tag);
+            }
+        }
+
+        foreach (array_filter(array_diff($currentTagIds, $newTagIds)) as $tagId) {
+            if ($tag = Tag::findOne($tagId)) {
+                $this->unlink('tags', $tag, true);
+            }
+        }
     }
 }
