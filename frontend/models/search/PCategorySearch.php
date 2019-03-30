@@ -13,6 +13,7 @@ use yii\db\Expression;
  */
 class PCategorySearch extends PCategory
 {
+    public $products_count;
     /**
      * {@inheritdoc}
      */
@@ -20,7 +21,7 @@ class PCategorySearch extends PCategory
     {
         return [
             [['id', 'parent_id'], 'integer'],
-            [['name'], 'safe'],
+            [['name', 'products_count'], 'safe'],
         ];
     }
 
@@ -67,6 +68,10 @@ class PCategorySearch extends PCategory
             'id' => $this->id,
             'parent_id' => $this->parent_id,
         ]);
+
+        if (isset($this->products_count)) {
+            $query->andHaving(['products_count' => $this->products_count]);
+        }
 
         $query->andFilterWhere(['like', 'name', $this->name]);
 

@@ -42,12 +42,28 @@ class PProductSearch extends PProduct
      */
     public function search($params)
     {
-        $query = PProduct::find()->with(['category', 'tags'])->joinWith(['productTags'], false);
+        $query = PProduct::find()
+            ->joinWith(['category'])
+            ->with(['tags'])
+            ->joinWith(['productTags'], false);
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort' => [
+                'defaultOrder' => ['id' => SORT_DESC],
+                'attributes' => [
+                    'id',
+                    'name',
+                    'price',
+                    'active',
+                    'category_id' => [
+                        'asc' => ['p_category.name' => SORT_ASC],
+                        'desc' => ['p_category.name' => SORT_DESC],
+                    ],
+                ],
+            ],
         ]);
 
         $this->load($params);
