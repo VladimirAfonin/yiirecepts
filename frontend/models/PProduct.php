@@ -143,9 +143,9 @@ class PProduct extends \yii\db\ActiveRecord
     }
 
     /**
-     * logic for tags
+     * logic for tags [slowly]
      */
-    public function updateTags()
+    /*public function updateTags()
     {
         $currentTagIds = $this->getTags()->select('id')->column();
         $newTagIds = $this->getTagsArray();
@@ -160,6 +160,32 @@ class PProduct extends \yii\db\ActiveRecord
             if ($tag = Tag::findOne($tagId)) {
                 $this->unlink('tags', $tag, true);
             }
+        }
+    }*/
+
+    /**
+     * [faster]
+     * @throws \yii\db\Exception
+     */
+    public function updateTags()
+    {
+        $currentTagIds = $this->getTags()->select('id')->column();
+        $newTagIds = $this->getTagsArray();
+
+        $toInsert = [];
+        foreach (array_filter(array_diff($newTagIds, $currentTagIds)) as $tagId) {
+            $toInsert[] = ['product_id' => $this->id, 'tag_id' => $tagId];
+        }
+
+        if ($toInsert) {
+            ProductTag::getDb()
+                ->createCommand()
+                ->batchInsert(ProductTag::tableName(), ['product_id', 'tag_id'], $toInsert)
+                ->execute();
+        }
+
+        if ($toRemove = array_filter(array_diff($currentTagIds, $newTagIds))) {
+            ProductTag::deleteAll(['product_id' => $this->id, 'tag_id' => $toRemove]);
         }
     }
 }
