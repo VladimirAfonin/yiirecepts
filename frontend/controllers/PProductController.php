@@ -90,7 +90,6 @@ class PProductController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
         $attributeValues = $this->initValues($model);
 
         $post = Yii::$app->request->post();
@@ -126,7 +125,7 @@ class PProductController extends Controller
         $attributes = Attribute::find()->indexBy('id')->all();
 
         foreach (array_diff_key($attributes, $attributeValues) as $attribute) {
-            $attributeValues[] = new AttributeValue(['attribute_id' => $attribute->id]);
+            $attributeValues[$attribute->id] = new AttributeValue(['attribute_id' => $attribute->id]);
         }
 
         foreach ($attributeValues as $value) {
@@ -150,8 +149,7 @@ class PProductController extends Controller
             if ($attributeValue->validate()) {
                 /** @var AttributeValue $attributeValue */
                 if (!empty($attributeValue->value)) {
-
-                    $attributeValue->save();
+                    $attributeValue->save(false);
                 } else {
                     $attributeValue->delete();
                 }

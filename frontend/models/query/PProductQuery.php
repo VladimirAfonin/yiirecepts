@@ -2,6 +2,8 @@
 
 namespace frontend\models\query;
 
+use frontend\models\PCategory;
+
 /**
  * This is the ActiveQuery class for [[\frontend\models\PProduct]].
  *
@@ -21,6 +23,16 @@ class PProductQuery extends \yii\db\ActiveQuery
     public function all($db = null)
     {
         return parent::all($db);
+    }
+
+    public function forCategory($id)
+    {
+        $ids = [$id];
+        $childrenIds = [$id];
+        while ($childrenIds = PCategory::find()->select('id')->andWhere(['parent_id' => $childrenIds])->column()) {
+            $ids = array_merge($ids, $childrenIds);
+        }
+        return $this->andWhere(['category_id' => array_unique($ids)]);
     }
 
     /**
