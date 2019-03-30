@@ -16,6 +16,7 @@ use Yii;
  */
 class AttributeValue extends \yii\db\ActiveRecord
 {
+    const SCENARIO_PRODUCT = 'product';
     /**
      * {@inheritdoc}
      */
@@ -30,7 +31,8 @@ class AttributeValue extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['product_id', 'attribute_id', 'value'], 'required'],
+            [['product_id', 'attribute_id'], 'required'],
+            [['value'], 'required', 'except' => self::SCENARIO_PRODUCT],
             [['product_id', 'attribute_id'], 'integer'],
             [['value'], 'string', 'max' => 255],
             [['product_id', 'attribute_id'], 'unique', 'targetAttribute' => ['product_id', 'attribute_id']],

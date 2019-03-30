@@ -2,9 +2,12 @@
 
 namespace frontend\controllers;
 
+use frontend\models\Attribute;
+use frontend\models\AttributeValue;
 use Yii;
 use frontend\models\PProduct;
 use frontend\models\search\PProductSearch;
+use yii\base\Model;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -81,18 +84,79 @@ class PProductController extends Controller
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
      */
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        $attributeValues = $this->initValues($model);
+
+        $post = Yii::$app->request->post();
+
+        if ($model->load($post) && $model->validate() && Model::loadMultiple($attributeValues, $post) && Model::validateMultiple($attributeValues)) {
+            $transaction = PProduct::getDb()->beginTransaction();
+            try {
+                $model->save(false);
+                $this->processValues($attributeValues, $model);
+                $transaction->commit();
+            } catch (\Exception $e) {
+                $transaction->rollBack();
+                \Yii::$app->session->addFlash('error', $e->getMessage());
+                throw $e;
+            }
             return $this->redirect(['view', 'id' => $model->id]);
+        } else {
+            return $this->render('update', [
+                'model' => $model,
+                'attributeValues' => $attributeValues,
+            ]);
         }
 
-        return $this->render('update', [
-            'model' => $model,
-        ]);
+    }
+
+    /**
+     * @param PProduct $model
+     * @return array|\yii\db\ActiveRecord[]
+     */
+    private function initValues(PProduct $model)
+    {
+        $attributeValues = $model->getAttributeValues()->with('attribute0')->indexBy('attribute_id')->all();
+        $attributes = Attribute::find()->indexBy('id')->all();
+
+        foreach (array_diff_key($attributes, $attributeValues) as $attribute) {
+            $attributeValues[] = new AttributeValue(['attribute_id' => $attribute->id]);
+        }
+
+        foreach ($attributeValues as $value) {
+            $value->setScenario(AttributeValue::SCENARIO_PRODUCT);
+        }
+
+        return $attributeValues;
+    }
+
+    /**
+     * @param $attributeValues
+     * @param $model
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
+     */
+    private function processValues($attributeValues, $model)
+    {
+        foreach ($attributeValues as $attributeValue) {
+            /** @var AttributeValue $attributeValue */
+            $attributeValue->product_id = $model->id;
+            if ($attributeValue->validate()) {
+                /** @var AttributeValue $attributeValue */
+                if (!empty($attributeValue->value)) {
+
+                    $attributeValue->save();
+                } else {
+                    $attributeValue->delete();
+                }
+            }
+        }
     }
 
     /**
